@@ -7,21 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('scm') {
-            steps {
-                echo 'Getting from SCM..'
-                checkout([$class: 'GitSCM', 
-                          branches: [[name: '${sha1}']], 
-                          doGenerateSubmoduleConfigurations: false, 
-                          extensions: [], 
-                          submoduleCfg: [], 
-                          userRemoteConfigs: 
-                          [[credentialsId: 'git_account', 
-                            url: 'https://github.com/mryongsim/simple-java-maven-app.git',
-                            refspec: '+refs/pull/*:refs/remotes/origin/pr/*']]])
-                          
-            }
-        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
